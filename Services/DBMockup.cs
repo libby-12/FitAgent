@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SignInAssignment.Services
 {
-    internal class DBMockup
+    public class DBMockup
     {
         private List<User> _users;
 
