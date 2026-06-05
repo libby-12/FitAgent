@@ -109,12 +109,12 @@ namespace SignInAssignment.ViewModels
             if (userExists)
             {
                 LoginMessage = "התחברת בהצלחה!";
-                SignInMessageColor = Colors.Green;
+                SignInMessageColor = Colors.LightGreen;
             }
             else
             {
                 LoginMessage = "שם משתמש או סיסמה שגויים";
-                SignInMessageColor = Colors.Red;
+                SignInMessageColor = Colors.OrangeRed;
             }
         }
 
