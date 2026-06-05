@@ -75,6 +75,11 @@ namespace SignInAssignment.ViewModels
 
         public SignInViewModel()
         {
+            _userName = string.Empty;
+            _password = string.Empty;
+            _loginMessage = string.Empty;
+            _signInMessageColor = Colors.Transparent;
+
             _db = new DBMockup();
 
             SignInCommand = new Command(OnSignIn, CanSignIn);
