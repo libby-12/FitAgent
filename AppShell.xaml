@@ -8,8 +8,8 @@
     Title="SignInAssignment">
 
     <ShellContent
-        Title="Sign In"
-        ContentTemplate="{DataTemplate views:SignIn}"
-        Route="SignIn" />
+        Title="Sign Up"
+        ContentTemplate="{DataTemplate views:SignUp}"
+        Route="SignUp" />
 
 </Shell>
