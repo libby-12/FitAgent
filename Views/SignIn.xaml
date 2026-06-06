@@ -60,7 +60,7 @@
             </Grid>
         </Border>
 
-        <Button Text="SignIn"
+        <Button Text="Sign In"
                 Command="{Binding SignInCommand}"
                 TextColor="White"
                 CornerRadius="25"
