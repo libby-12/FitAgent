@@ -21,29 +21,44 @@
                FontAttributes="Bold" 
                TextColor="White"/>
 
-        <Entry Placeholder="Email"
-               Text="{Binding UserName}"
-               Keyboard="Email" 
-               TextColor="White"
-               PlaceholderColor="#B0B0B0"
-               ClearButtonVisibility="WhileEditing"/>
-
-        <Grid ColumnDefinitions="*, Auto">
-            <Entry Grid.Column="0"
-                   Placeholder="סיסמה"
-                   Text="{Binding UserPassword}"
+        <Border Stroke="#B0B0B0" 
+                StrokeThickness="1.5" 
+                StrokeShape="RoundRectangle 10" 
+                BackgroundColor="Transparent" 
+                Padding="15, 0">
+            <Entry Placeholder="Email"
+                   Text="{Binding UserName}"
+                   Keyboard="Email" 
                    TextColor="White"
                    PlaceholderColor="#B0B0B0"
-                   IsPassword="{Binding EntryAsPassword}" />
+                   BackgroundColor="Transparent" 
+                   ClearButtonVisibility="WhileEditing"/>
+        </Border>
 
-            <Button Grid.Column="1"
-                    Text="{Binding PasswordIconCode}"
-                    Command="{Binding TogglePasswordCommand}"
-                    BackgroundColor="Transparent"
-                    TextColor="White"
-                    FontSize="24"
-                    FontFamily="MaterialIcons" />
-        </Grid>
+        <Border Stroke="#B0B0B0" 
+                StrokeThickness="1.5" 
+                StrokeShape="RoundRectangle 10" 
+                BackgroundColor="Transparent" 
+                Padding="15, 0">
+            <Grid ColumnDefinitions="*, Auto">
+                <Entry Grid.Column="0"
+                       Placeholder="סיסמה"
+                       Text="{Binding UserPassword}"
+                       TextColor="White"
+                       PlaceholderColor="#B0B0B0"
+                       BackgroundColor="Transparent"
+                       IsPassword="{Binding EntryAsPassword}" />
+
+                <Button Grid.Column="1"
+                        Text="{Binding PasswordIconCode}"
+                        Command="{Binding TogglePasswordCommand}"
+                        BackgroundColor="Transparent"
+                        TextColor="White"
+                        FontSize="24"
+                        Padding="0"
+                        FontFamily="MaterialIcons" />
+            </Grid>
+        </Border>
 
         <Button Text="SignIn"
                 Command="{Binding SignInCommand}"
