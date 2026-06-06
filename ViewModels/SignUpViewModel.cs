@@ -96,6 +96,7 @@ namespace SignInAssignment.ViewModels
             _db = new DBMockup();
             SignUpCommand = new Command(OnSignUp, CanSignUp);
             TogglePasswordCommand = new Command(OnTogglePassword);
+            NavigateToSignInCommand = new Command(OnNavigateToSignIn);
         }
 
         private bool CanSignUp()
@@ -149,6 +150,13 @@ namespace SignInAssignment.ViewModels
         {
             EntryAsPassword = !EntryAsPassword;
             PasswordIconCode = EntryAsPassword ? "\ue8f4" : "\ue8f5";
+        }
+
+        public ICommand NavigateToSignInCommand { get; }
+
+        private async void OnNavigateToSignIn()
+        {
+            await Shell.Current.GoToAsync("//SignIn");
         }
     }
 }

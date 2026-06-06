@@ -12,4 +12,9 @@
         ContentTemplate="{DataTemplate views:SignUp}"
         Route="SignUp" />
 
+    <ShellContent
+        Title="Sign In"
+        ContentTemplate="{DataTemplate views:SignIn}"
+        Route="SignIn" />
+
 </Shell>
