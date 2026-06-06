@@ -15,7 +15,7 @@
 
     <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center">
 
-        <Label Text="כניסה" 
+        <Label Text="Sign In" 
                FontSize="36" 
                HorizontalOptions="Center" 
                FontAttributes="Bold" 
@@ -79,6 +79,15 @@
                 </Trigger>
             </Button.Triggers>
         </Button>
+
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="5" Margin="0,20,0,0">
+            <Label Text="Don't have an account?" TextColor="#B0B0B0" VerticalOptions="Center"/>
+            <Label Text="Sign up" TextColor="#8A2BE2" FontAttributes="Bold" VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToSignUpCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </HorizontalStackLayout>
 
         <Label Text="{Binding LoginMessage}"
                TextColor="{Binding SignInMessageColor}"

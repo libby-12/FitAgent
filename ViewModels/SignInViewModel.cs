@@ -84,6 +84,7 @@ namespace SignInAssignment.ViewModels
 
             SignInCommand = new Command(OnSignIn, CanSignIn);
             TogglePasswordCommand = new Command(OnTogglePassword);
+            NavigateToSignUpCommand = new Command(OnNavigateToSignUp);
         }
 
 
@@ -122,6 +123,13 @@ namespace SignInAssignment.ViewModels
         {
             EntryAsPassword = !EntryAsPassword;
             PasswordIconCode = EntryAsPassword ? "\ue8f4" : "\ue8f5";
+        }
+
+        public ICommand NavigateToSignUpCommand { get; }
+
+        private async void OnNavigateToSignUp()
+        {
+            await Shell.Current.GoToAsync("//SignUp");
         }
     }
 }
