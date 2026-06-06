@@ -7,7 +7,12 @@ namespace SignInAssignment.Services
 {
     public class DBMockup
     {
-        private List<User> _users;
+        private static List<User> _users = new List<User>()
+        {
+            new User { FirstName = "Tomer", LastName = "Marty", UEmail = "admin@mail.com", UPassword = "admin", Phone = "050-1111111" },
+            new User { FirstName = "Amir", LastName = "Mayo", UEmail = "user1@mail.com", UPassword = "pass1", Phone = "050-2222222" },
+            new User { FirstName = "Galit", LastName = "Nuvy", UEmail = "user2@mail.com", UPassword = "pass2", Phone = "050-3333333" }
+        };
 
         public List<User> Users
         {
@@ -16,15 +21,17 @@ namespace SignInAssignment.Services
 
         public DBMockup()
         {
-            _users = new List<User>();
-            _users.Add(new User { FirstName = "Tomer", LastName = "Marty", UEmail = "admin@mail.com", UPassword = "admin", Phone = "050-1111111" });
-            _users.Add(new User { FirstName = "Amir", LastName = "Mayo", UEmail = "user1@mail.com", UPassword = "pass1", Phone = "050-2222222" });
-            _users.Add(new User { FirstName = "Galit", LastName = "Nuvy", UEmail = "user2@mail.com", UPassword = "pass2", Phone = "050-3333333" });
+            // בנאי ריק, כי הנתונים כבר מופעלים למעלה
         }
 
         public void AddUser(User newUser)
         {
             _users.Add(newUser);
+        }
+
+        public bool isExist(string uEmail, string uPass)
+        {
+            return _users.Any(u => u.UEmail == uEmail && u.UPassword == uPass);
         }
     }
 }
