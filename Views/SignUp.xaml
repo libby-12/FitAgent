@@ -2,7 +2,6 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewModels="clr-namespace:FitAgent.ViewModels"
     x:DataType="viewModels:SignUpViewModel"
     x:Class="FitAgent.Views.SignUp"
@@ -10,7 +9,8 @@
     Title=""
     xmlns:views="clr-namespace:FitAgent.Views"
     FlowDirection="LeftToRight"
-    Background="{StaticResource BrandPageBackground}">
+    Background="{StaticResource BrandPageBackground}"
+    xmlns:helper="clr-namespace:FitAgent.Helper">
     <ScrollView>
         <VerticalStackLayout
             Padding="24,36,24,32"
@@ -49,13 +49,7 @@
                             Placeholder="Email"
                             Text="{Binding UserName}"
                             Keyboard="Email"
-                            Style="{StaticResource AuthEntry}">
-                            <Entry.Behaviors>
-                                <toolkit:EmailValidationBehavior
-                                    Flags="ValidateOnValueChanged"
-                                    IsValid="{Binding IsEmailValid}" />
-                            </Entry.Behaviors>
-                        </Entry>
+                            Style="{StaticResource AuthEntry}" />
                     </Border>
                     <Border
                         Style="{StaticResource AuthField}">
@@ -71,9 +65,15 @@
                                 Grid.Column="1"
                                 Text="{Binding PasswordIconCode}"
                                 Command="{Binding TogglePasswordCommand}"
-                                Style="{StaticResource AuthPasswordToggle}" />
+                                Style="{StaticResource AuthPasswordToggle}"
+                                SemanticProperties.Description="{Binding PasswordToggleDescription}" />
                         </Grid>
                     </Border>
+                    <Label
+                        Text="{x:Static helper:AppMessages.PasswordGuidance}"
+                        TextColor="{StaticResource BrandMutedText}"
+                        FontSize="12"
+                        Margin="4,-8,0,0" />
                     <Border
                         Style="{StaticResource AuthField}">
                         <Entry
@@ -82,6 +82,11 @@
                             Keyboard="Telephone"
                             Style="{StaticResource AuthEntry}" />
                     </Border>
+                    <Label
+                        Text="{x:Static helper:AppMessages.PhoneGuidance}"
+                        TextColor="{StaticResource BrandMutedText}"
+                        FontSize="12"
+                        Margin="4,-8,0,0" />
                     <Button
                         Text="Sign Up"
                         Command="{Binding SignUpCommand}"

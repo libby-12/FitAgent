@@ -1,3 +1,4 @@
+using FitAgent.Helper;
 using FitAgent.Models;
 using System;
 using System.Collections.Generic;
@@ -26,18 +27,19 @@ namespace FitAgent.Services
 
         public void AddUser(User newUser)
         {
+            newUser.UEmail = AuthInput.NormalizeEmail(newUser.UEmail);
             _users.Add(newUser);
         }
 
         // Registration checks only the email; sign-in checks email and password together.
         public bool EmailExists(string uEmail)
         {
-            return _users.Any(u => u.UEmail == uEmail);
+            return _users.Any(u => AuthInput.EmailsMatch(u.UEmail, uEmail));
         }
 
         public bool isExist(string uEmail, string uPass)
         {
-            return _users.Any(u => u.UEmail == uEmail && u.UPassword == uPass);
+            return _users.Any(u => AuthInput.EmailsMatch(u.UEmail, uEmail) && u.UPassword == uPass);
         }
     }
 }

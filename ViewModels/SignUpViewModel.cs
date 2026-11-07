@@ -1,5 +1,5 @@
 using FitAgent.Helper;
-using FitAgent.Models; 
+using FitAgent.Models;
 using FitAgent.Services;
 using System;
 using System.Collections.Generic;
@@ -16,36 +16,60 @@ namespace FitAgent.ViewModels
         public string FirstName
         {
             get => _firstName;
-            set { _firstName = value; OnPropertyChanged(); ((Command)SignUpCommand).ChangeCanExecute(); }
+            set
+            {
+                if (_firstName == value) return;
+                _firstName = value;
+                SignUpMessageVisible = false;
+                OnPropertyChanged();
+                ((Command)SignUpCommand).ChangeCanExecute();
+            }
         }
 
         private string _lastName = string.Empty;
         public string LastName
         {
             get => _lastName;
-            set { _lastName = value; OnPropertyChanged(); ((Command)SignUpCommand).ChangeCanExecute(); }
+            set
+            {
+                if (_lastName == value) return;
+                _lastName = value;
+                SignUpMessageVisible = false;
+                OnPropertyChanged();
+                ((Command)SignUpCommand).ChangeCanExecute();
+            }
         }
 
         private string _userName = string.Empty;
         public string UserName
         {
             get => _userName;
-            set { _userName = value; OnPropertyChanged(); ((Command)SignUpCommand).ChangeCanExecute(); }
+            set
+            {
+                if (_userName == value) return;
+                _userName = value;
+                SignUpMessageVisible = false;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsEmailValid));
+                ((Command)SignUpCommand).ChangeCanExecute();
+            }
         }
 
         private string _userPassword = string.Empty;
         public string UserPassword
         {
             get => _userPassword;
-            set { _userPassword = value; OnPropertyChanged(); ((Command)SignUpCommand).ChangeCanExecute(); }
+            set
+            {
+                if (_userPassword == value) return;
+                _userPassword = value;
+                SignUpMessageVisible = false;
+                OnPropertyChanged();
+                ((Command)SignUpCommand).ChangeCanExecute();
+            }
         }
 
-        private bool _isEmailValid;
-        public bool IsEmailValid
-        {
-            get => _isEmailValid;
-            set { _isEmailValid = value; OnPropertyChanged(); ((Command)SignUpCommand).ChangeCanExecute(); }
-        }
+        public bool IsEmailValid => AuthInput.IsEmailValid(UserName);
 
         private string _signUpMessage = string.Empty;
         public string SignUpMessage
@@ -72,22 +96,36 @@ namespace FitAgent.ViewModels
         public bool EntryAsPassword
         {
             get => _entryAsPassword;
-            set { _entryAsPassword = value; OnPropertyChanged(); }
+            set
+            {
+                if (_entryAsPassword == value) return;
+                _entryAsPassword = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(PasswordIconCode));
+                OnPropertyChanged(nameof(PasswordToggleDescription));
+            }
         }
 
         private string _phone = string.Empty;
         public string Phone
         {
             get => _phone;
-            set { _phone = value; OnPropertyChanged(); ((Command)SignUpCommand).ChangeCanExecute(); }
+            set
+            {
+                if (_phone == value) return;
+                _phone = value;
+                SignUpMessageVisible = false;
+                OnPropertyChanged();
+                ((Command)SignUpCommand).ChangeCanExecute();
+            }
         }
 
-        private string _passwordIconCode = FontHelper.CLOSED_EYE_ICON;
-        public string PasswordIconCode
-        {
-            get => _passwordIconCode;
-            set { _passwordIconCode = value; OnPropertyChanged(); }
-        }
+        // Both the icon and accessibility description follow the same visibility state.
+        public string PasswordIconCode => EntryAsPassword
+            ? FontHelper.CLOSED_EYE_ICON : FontHelper.OPEN_EYE_ICON;
+
+        public string PasswordToggleDescription => EntryAsPassword
+            ? AppMessages.ShowPassword : AppMessages.HidePassword;
 
         public ICommand SignUpCommand { get; }
         public ICommand TogglePasswordCommand { get; }
@@ -105,13 +143,15 @@ namespace FitAgent.ViewModels
             return !string.IsNullOrWhiteSpace(FirstName) &&
                    !string.IsNullOrWhiteSpace(LastName) &&
                    !string.IsNullOrWhiteSpace(UserName) &&
-                   !string.IsNullOrWhiteSpace(UserPassword) &&
-                   !string.IsNullOrWhiteSpace(Phone) &&
+                   AuthInput.IsPasswordValid(UserPassword) &&
+                   AuthInput.IsPhoneValid(Phone) &&
                    IsEmailValid;
         }
 
         private void OnSignUp()
         {
+            if (!CanSignUp()) return;
+            UserName = AuthInput.NormalizeEmail(UserName);
             SignUpMessageVisible = true;
 
             if (_db.EmailExists(UserName))
@@ -127,7 +167,7 @@ namespace FitAgent.ViewModels
                     LastName = LastName,
                     UEmail = UserName,
                     UPassword = UserPassword,
-                    Phone = Phone
+                    Phone = AuthInput.NormalizePhone(Phone)
                 };
 
                 _db.AddUser(newUser); 
@@ -140,9 +180,15 @@ namespace FitAgent.ViewModels
         private void OnTogglePassword()
         {
             EntryAsPassword = !EntryAsPassword;
-            PasswordIconCode = EntryAsPassword ? FontHelper.CLOSED_EYE_ICON : FontHelper.OPEN_EYE_ICON;
         }
 
+        // Shell can keep pages alive, so clear temporary credentials when leaving.
+        public void ResetSensitiveState()
+        {
+            UserPassword = string.Empty;
+            EntryAsPassword = true;
+            SignUpMessageVisible = false;
+        }
         public ICommand NavigateToSignInCommand { get; }
 
         private async void OnNavigateToSignIn()

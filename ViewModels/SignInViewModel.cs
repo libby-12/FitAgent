@@ -17,7 +17,9 @@ namespace FitAgent.ViewModels
             get => _userName;
             set
             {
+                if (_userName == value) return;
                 _userName = value;
+                SignInMessageVisible = false;
                 OnPropertyChanged();
                 ((Command)SignInCommand).ChangeCanExecute();
             }
@@ -29,7 +31,9 @@ namespace FitAgent.ViewModels
             get => _password;
             set
             {
+                if (_password == value) return;
                 _password = value;
+                SignInMessageVisible = false;
                 OnPropertyChanged();
                 ((Command)SignInCommand).ChangeCanExecute();
             }
@@ -60,15 +64,22 @@ namespace FitAgent.ViewModels
         public bool EntryAsPassword
         {
             get => _entryAsPassword;
-            set { _entryAsPassword = value; OnPropertyChanged(); }
+            set
+            {
+                if (_entryAsPassword == value) return;
+                _entryAsPassword = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(PasswordIconCode));
+                OnPropertyChanged(nameof(PasswordToggleDescription));
+            }
         }
 
-        private string _passwordIconCode = FontHelper.CLOSED_EYE_ICON;
-        public string PasswordIconCode
-        {
-            get => _passwordIconCode;
-            set { _passwordIconCode = value; OnPropertyChanged(); }
-        }
+        // Both the icon and accessibility description follow the same visibility state.
+        public string PasswordIconCode => EntryAsPassword
+            ? FontHelper.CLOSED_EYE_ICON : FontHelper.OPEN_EYE_ICON;
+
+        public string PasswordToggleDescription => EntryAsPassword
+            ? AppMessages.ShowPassword : AppMessages.HidePassword;
 
 
         public ICommand SignInCommand { get; }
@@ -96,6 +107,8 @@ namespace FitAgent.ViewModels
 
         private void OnSignIn()
         {
+            if (!CanSignIn()) return;
+            UserName = AuthInput.NormalizeEmail(UserName);
             SignInMessageVisible = true;
 
             // The data service checks credentials; the view model updates the screen.
@@ -114,9 +127,15 @@ namespace FitAgent.ViewModels
         private void OnTogglePassword()
         {
             EntryAsPassword = !EntryAsPassword;
-            PasswordIconCode = EntryAsPassword ? FontHelper.CLOSED_EYE_ICON : FontHelper.OPEN_EYE_ICON;
         }
 
+        // Shell can keep pages alive, so clear temporary credentials when leaving.
+        public void ResetSensitiveState()
+        {
+            UserPassword = string.Empty;
+            EntryAsPassword = true;
+            SignInMessageVisible = false;
+        }
         public ICommand NavigateToSignUpCommand { get; }
 
         private async void OnNavigateToSignUp()

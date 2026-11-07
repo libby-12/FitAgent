@@ -51,7 +51,8 @@
                                 Grid.Column="1"
                                 Text="{Binding PasswordIconCode}"
                                 Command="{Binding TogglePasswordCommand}"
-                                Style="{StaticResource AuthPasswordToggle}" />
+                                Style="{StaticResource AuthPasswordToggle}"
+                                SemanticProperties.Description="{Binding PasswordToggleDescription}" />
                         </Grid>
                     </Border>
                     <Button
