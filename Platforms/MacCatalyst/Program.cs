@@ -1,7 +1,7 @@
-﻿using ObjCRuntime;
+using ObjCRuntime;
 using UIKit;
 
-namespace SignInAssignment
+namespace FitAgent
 {
     public class Program
     {

@@ -1,4 +1,4 @@
-﻿namespace SignInAssignment
+namespace FitAgent
 {
     public partial class MainPage : ContentPage
     {

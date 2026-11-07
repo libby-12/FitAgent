@@ -1,9 +1,9 @@
-﻿using SignInAssignment.Models;
+using FitAgent.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SignInAssignment.Services
+namespace FitAgent.Services
 {
     public class DBMockup
     {

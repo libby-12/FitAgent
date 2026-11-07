@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
-using SignInAssignment.Services;
+using FitAgent.Services;
 
-namespace SignInAssignment.ViewModels
+namespace FitAgent.ViewModels
 {
     public class SignInViewModel : ViewModelBase
     {
@@ -109,12 +109,12 @@ namespace SignInAssignment.ViewModels
 
             if (userExists)
             {
-                LoginMessage = "התחברת בהצלחה!";
+                LoginMessage = "Signed in successfully.";
                 SignInMessageColor = Colors.LightGreen;
             }
             else
             {
-                LoginMessage = "שם משתמש או סיסמה שגויים";
+                LoginMessage = "Incorrect email or password.";
                 SignInMessageColor = Colors.OrangeRed;
             }
         }

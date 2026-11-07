@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace SignInAssignment.ViewModels
+namespace FitAgent.ViewModels
 {
     public class ViewModelBase : INotifyPropertyChanged
     {

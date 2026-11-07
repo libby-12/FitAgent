@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace SignInAssignment
+namespace FitAgent
 {
     public partial class App : Application
     {

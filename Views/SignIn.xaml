@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SignInAssignment.Views.SignIn"
+             x:Class="FitAgent.Views.SignIn"
              Shell.NavBarIsVisible="False"
              Title="">
 
@@ -42,7 +42,7 @@
                 Padding="15, 0">
             <Grid ColumnDefinitions="*, Auto">
                 <Entry Grid.Column="0"
-                       Placeholder="סיסמה"
+                       Placeholder="Password"
                        Text="{Binding UserPassword}"
                        TextColor="White"
                        PlaceholderColor="#B0B0B0"

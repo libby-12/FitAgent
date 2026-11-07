@@ -1,7 +1,7 @@
-﻿using Android.App;
+using Android.App;
 using Android.Runtime;
 
-namespace SignInAssignment
+namespace FitAgent
 {
     [Application]
     public class MainApplication : MauiApplication

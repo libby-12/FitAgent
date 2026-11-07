@@ -1,6 +1,6 @@
-﻿using Foundation;
+using Foundation;
 
-namespace SignInAssignment
+namespace FitAgent
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

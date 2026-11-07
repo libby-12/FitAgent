@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
 
-namespace SignInAssignment
+namespace FitAgent
 {
     public static class MauiProgram
     {

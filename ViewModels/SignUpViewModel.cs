@@ -1,11 +1,11 @@
-﻿using SignInAssignment.Models; 
-using SignInAssignment.Services;
+using FitAgent.Models; 
+using FitAgent.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 
-namespace SignInAssignment.ViewModels
+namespace FitAgent.ViewModels
 {
     public class SignUpViewModel : ViewModelBase
     {
@@ -125,7 +125,7 @@ namespace SignInAssignment.ViewModels
 
             if (userExists)
             {
-                SignUpMessage = "האימייל כבר קיים במערכת!";
+                SignUpMessage = "An account with this email already exists.";
                 SignUpMessageColor = Colors.OrangeRed; 
             }
             else
@@ -141,7 +141,7 @@ namespace SignInAssignment.ViewModels
 
                 _db.AddUser(newUser); 
 
-                SignUpMessage = "נרשמת בהצלחה! אפשר להתחבר.";
+                SignUpMessage = "Account created successfully. You can now sign in.";
                 SignUpMessageColor = Colors.LightGreen; 
             }
         }

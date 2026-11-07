@@ -1,6 +1,6 @@
-using SignInAssignment.ViewModels;
+using FitAgent.ViewModels;
 
-namespace SignInAssignment.Views;
+namespace FitAgent.Views;
 
 public partial class SignUp : ContentPage
 {
