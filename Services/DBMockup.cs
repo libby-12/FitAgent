@@ -29,6 +29,12 @@ namespace FitAgent.Services
             _users.Add(newUser);
         }
 
+        // Registration checks only the email; sign-in checks email and password together.
+        public bool EmailExists(string uEmail)
+        {
+            return _users.Any(u => u.UEmail == uEmail);
+        }
+
         public bool isExist(string uEmail, string uPass)
         {
             return _users.Any(u => u.UEmail == uEmail && u.UPassword == uPass);

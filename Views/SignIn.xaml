@@ -1,100 +1,98 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FitAgent.Views.SignIn"
-             Shell.NavBarIsVisible="False"
-             Title="">
-
-    <ContentPage.Background>
-        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Color="#0f0c29" Offset="0.0" />
-            <GradientStop Color="#302b63" Offset="0.5" />
-            <GradientStop Color="#24243e" Offset="1.0" />
-        </LinearGradientBrush>
-    </ContentPage.Background>
-
-    <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center">
-
-        <Label Text="Sign In" 
-               FontSize="36" 
-               HorizontalOptions="Center" 
-               FontAttributes="Bold" 
-               TextColor="White"/>
-
-        <Border Stroke="#B0B0B0" 
-                StrokeThickness="1.5" 
-                StrokeShape="RoundRectangle 10" 
-                BackgroundColor="Transparent" 
-                Padding="15, 0">
-            <Entry Placeholder="Email"
-                   Text="{Binding UserName}"
-                   Keyboard="Email" 
-                   TextColor="White"
-                   PlaceholderColor="#B0B0B0"
-                   BackgroundColor="Transparent" 
-                   ClearButtonVisibility="WhileEditing"/>
-        </Border>
-
-        <Border Stroke="#B0B0B0" 
-                StrokeThickness="1.5" 
-                StrokeShape="RoundRectangle 10" 
-                BackgroundColor="Transparent" 
-                Padding="15, 0">
-            <Grid ColumnDefinitions="*, Auto">
-                <Entry Grid.Column="0"
-                       Placeholder="Password"
-                       Text="{Binding UserPassword}"
-                       TextColor="White"
-                       PlaceholderColor="#B0B0B0"
-                       BackgroundColor="Transparent"
-                       IsPassword="{Binding EntryAsPassword}" />
-
-                <Button Grid.Column="1"
-                        Text="{Binding PasswordIconCode}"
-                        Command="{Binding TogglePasswordCommand}"
-                        BackgroundColor="Transparent"
-                        TextColor="White"
-                        FontSize="24"
-                        Padding="0"
-                        FontFamily="MaterialIcons" />
-            </Grid>
-        </Border>
-
-        <Button Text="Sign In"
-                Command="{Binding SignInCommand}"
-                TextColor="White"
-                CornerRadius="25"
-                HeightRequest="50"
-                FontAttributes="Bold"
-                FontSize="18"
-                Margin="0, 20, 0, 0">
-            <Button.Triggers>
-                <Trigger TargetType="Button" Property="IsEnabled" Value="False">
-                    <Setter Property="BackgroundColor" Value="#555555" />
-                    <Setter Property="Opacity" Value="0.5" />
-                </Trigger>
-                <Trigger TargetType="Button" Property="IsEnabled" Value="True">
-                    <Setter Property="BackgroundColor" Value="#8A2BE2" />
-                    <Setter Property="Opacity" Value="1.0" />
-                </Trigger>
-            </Button.Triggers>
-        </Button>
-
-        <HorizontalStackLayout HorizontalOptions="Center" Spacing="5" Margin="0,20,0,0">
-            <Label Text="Don't have an account?" TextColor="#B0B0B0" VerticalOptions="Center"/>
-            <Label Text="Sign up" TextColor="#8A2BE2" FontAttributes="Bold" VerticalOptions="Center">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding NavigateToSignUpCommand}" />
-                </Label.GestureRecognizers>
-            </Label>
-        </HorizontalStackLayout>
-
-        <Label Text="{Binding LoginMessage}"
-               TextColor="{Binding SignInMessageColor}"
-               IsVisible="{Binding SignInMessageVisible}"
-               HorizontalOptions="Center"
-               FontSize="18"
-               FontAttributes="Bold" />
-
-    </VerticalStackLayout>
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:FitAgent.ViewModels"
+    x:DataType="viewModels:SignInViewModel"
+    x:Class="FitAgent.Views.SignIn"
+    Shell.NavBarIsVisible="False"
+    Title=""
+    xmlns:views="clr-namespace:FitAgent.Views"
+    FlowDirection="LeftToRight"
+    Background="{StaticResource BrandPageBackground}">
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="24,36,24,32"
+            Spacing="28"
+            MaximumWidthRequest="460"
+            HorizontalOptions="Fill"
+            VerticalOptions="Center">
+            <!-- Shared brand header and styled form inside a scrollable layout. -->
+            <views:BrandHeader
+                xmlns:views="clr-namespace:FitAgent.Views" />
+            <Border
+                Style="{StaticResource AuthCard}">
+                <VerticalStackLayout
+                    Padding="0"
+                    Spacing="14">
+                    <Label
+                        Text="Sign In"
+                        Style="{StaticResource AuthHeading}" />
+                    <Border
+                        Style="{StaticResource AuthField}">
+                        <Entry
+                            Placeholder="Email"
+                            Text="{Binding UserName}"
+                            Keyboard="Email"
+                            ClearButtonVisibility="WhileEditing"
+                            Style="{StaticResource AuthEntry}" />
+                    </Border>
+                    <Border
+                        Style="{StaticResource AuthField}">
+                        <Grid
+                            ColumnDefinitions="*, Auto">
+                            <Entry
+                                Grid.Column="0"
+                                Placeholder="Password"
+                                Text="{Binding UserPassword}"
+                                IsPassword="{Binding EntryAsPassword}"
+                                Style="{StaticResource AuthEntry}" />
+                            <Button
+                                Grid.Column="1"
+                                Text="{Binding PasswordIconCode}"
+                                Command="{Binding TogglePasswordCommand}"
+                                Style="{StaticResource AuthPasswordToggle}" />
+                        </Grid>
+                    </Border>
+                    <Button
+                        Text="Sign In"
+                        Command="{Binding SignInCommand}"
+                        Style="{StaticResource AuthButton}" />
+                    <FlexLayout
+                        HorizontalOptions="Center"
+                        Margin="0,12,0,0"
+                        Wrap="Wrap"
+                        JustifyContent="Center"
+                        AlignItems="Center">
+                        <Label
+                            Text="Don't have an account?"
+                            TextColor="{StaticResource BrandMutedText}"
+                            VerticalOptions="Center"
+                            FontSize="13"
+                            Margin="3,2" />
+                        <Label
+                            Text="Sign up"
+                            TextColor="{StaticResource BrandLilac}"
+                            FontAttributes="Bold"
+                            VerticalOptions="Center"
+                            FontSize="13"
+                            Margin="3,2">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding NavigateToSignUpCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </FlexLayout>
+                    <Label
+                        Text="{Binding LoginMessage}"
+                        TextColor="{Binding SignInMessageColor}"
+                        IsVisible="{Binding SignInMessageVisible}"
+                        HorizontalOptions="Center"
+                        FontSize="14"
+                        FontAttributes="Bold"
+                        HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

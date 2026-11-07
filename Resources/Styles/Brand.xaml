@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <!-- Shared purple palette and authentication styles for a consistent appearance. -->
+    <Color x:Key="BrandPurple">#8B5CF6</Color>
+    <Color x:Key="BrandLilac">#CDBBFF</Color>
+    <Color x:Key="BrandBackground">#120C24</Color>
+    <Color x:Key="BrandSurface">#211636</Color>
+    <Color x:Key="BrandInputBackground">#2B1E43</Color>
+    <Color x:Key="BrandOutline">#614782</Color>
+    <Color x:Key="BrandText">#FAF7FF</Color>
+    <Color x:Key="BrandMutedText">#C9BDDB</Color>
+
+    <LinearGradientBrush x:Key="BrandPageBackground" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#332052" Offset="0" />
+        <GradientStop Color="{StaticResource BrandBackground}" Offset="1" />
+    </LinearGradientBrush>
+
+    <Style x:Key="AuthCard" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource BrandSurface}" />
+        <Setter Property="Stroke" Value="{StaticResource BrandOutline}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 28" />
+        <Setter Property="Padding" Value="24" />
+    </Style>
+    <Style x:Key="AuthField" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource BrandInputBackground}" />
+        <Setter Property="Stroke" Value="{StaticResource BrandOutline}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 14" />
+        <Setter Property="Padding" Value="14,2" />
+    </Style>
+    <Style x:Key="AuthEntry" TargetType="Entry">
+        <Setter Property="TextColor" Value="{StaticResource BrandText}" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource BrandMutedText}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="FontFamily" Value="OpenSansRegular" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="MinimumHeightRequest" Value="48" />
+        <Setter Property="HorizontalTextAlignment" Value="Start" />
+    </Style>
+    <Style x:Key="AuthHeading" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource BrandText}" />
+        <Setter Property="FontFamily" Value="OpenSansSemibold" />
+        <Setter Property="FontSize" Value="28" />
+        <Setter Property="Margin" Value="0,0,0,8" />
+    </Style>
+    <Style x:Key="AuthButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource BrandPurple}" />
+        <Setter Property="TextColor" Value="{StaticResource BrandText}" />
+        <Setter Property="FontFamily" Value="OpenSansSemibold" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="CornerRadius" Value="16" />
+        <Setter Property="MinimumHeightRequest" Value="54" />
+        <Setter Property="Margin" Value="0,8,0,0" />
+        <Style.Triggers>
+            <Trigger TargetType="Button" Property="IsEnabled" Value="False">
+                <Setter Property="BackgroundColor" Value="#514064" />
+                <Setter Property="Opacity" Value="0.65" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="AuthPasswordToggle" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="{StaticResource BrandLilac}" />
+        <Setter Property="FontFamily" Value="MaterialIcons" />
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="Padding" Value="8,0" />
+        <Setter Property="MinimumWidthRequest" Value="48" />
+        <Setter Property="MinimumHeightRequest" Value="48" />
+    </Style>
+</ResourceDictionary>

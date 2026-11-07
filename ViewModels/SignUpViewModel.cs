@@ -1,3 +1,4 @@
+using FitAgent.Helper;
 using FitAgent.Models; 
 using FitAgent.Services;
 using System;
@@ -81,7 +82,7 @@ namespace FitAgent.ViewModels
             set { _phone = value; OnPropertyChanged(); ((Command)SignUpCommand).ChangeCanExecute(); }
         }
 
-        private string _passwordIconCode = "\ue8f4";
+        private string _passwordIconCode = FontHelper.CLOSED_EYE_ICON;
         public string PasswordIconCode
         {
             get => _passwordIconCode;
@@ -113,19 +114,9 @@ namespace FitAgent.ViewModels
         {
             SignUpMessageVisible = true;
 
-            bool userExists = false;
-            foreach (var user in _db.Users)
+            if (_db.EmailExists(UserName))
             {
-                if (user.UEmail == UserName) 
-                {
-                    userExists = true;
-                    break;
-                }
-            }
-
-            if (userExists)
-            {
-                SignUpMessage = "An account with this email already exists.";
+                SignUpMessage = AppMessages.EmailAlreadyExists;
                 SignUpMessageColor = Colors.OrangeRed; 
             }
             else
@@ -141,7 +132,7 @@ namespace FitAgent.ViewModels
 
                 _db.AddUser(newUser); 
 
-                SignUpMessage = "Account created successfully. You can now sign in.";
+                SignUpMessage = AppMessages.SignUpSuccess;
                 SignUpMessageColor = Colors.LightGreen; 
             }
         }
@@ -149,7 +140,7 @@ namespace FitAgent.ViewModels
         private void OnTogglePassword()
         {
             EntryAsPassword = !EntryAsPassword;
-            PasswordIconCode = EntryAsPassword ? "\ue8f4" : "\ue8f5";
+            PasswordIconCode = EntryAsPassword ? FontHelper.CLOSED_EYE_ICON : FontHelper.OPEN_EYE_ICON;
         }
 
         public ICommand NavigateToSignInCommand { get; }

@@ -1,3 +1,4 @@
+using FitAgent.Helper;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -62,7 +63,7 @@ namespace FitAgent.ViewModels
             set { _entryAsPassword = value; OnPropertyChanged(); }
         }
 
-        private string _passwordIconCode = "\ue8f4"; // קוד יוניקוד של אייקון עין סגורה (לפי המצגת של המורה)
+        private string _passwordIconCode = FontHelper.CLOSED_EYE_ICON;
         public string PasswordIconCode
         {
             get => _passwordIconCode;
@@ -97,24 +98,15 @@ namespace FitAgent.ViewModels
         {
             SignInMessageVisible = true;
 
-            bool userExists = false;
-            foreach (var user in _db.Users)
+            // The data service checks credentials; the view model updates the screen.
+            if (_db.isExist(UserName, UserPassword))
             {
-                if (user.UEmail == UserName && user.UPassword == UserPassword)
-                {
-                    userExists = true;
-                    break;
-                }
-            }
-
-            if (userExists)
-            {
-                LoginMessage = "Signed in successfully.";
+                LoginMessage = AppMessages.SignInSuccess;
                 SignInMessageColor = Colors.LightGreen;
             }
             else
             {
-                LoginMessage = "Incorrect email or password.";
+                LoginMessage = AppMessages.SignInError;
                 SignInMessageColor = Colors.OrangeRed;
             }
         }
@@ -122,7 +114,7 @@ namespace FitAgent.ViewModels
         private void OnTogglePassword()
         {
             EntryAsPassword = !EntryAsPassword;
-            PasswordIconCode = EntryAsPassword ? "\ue8f4" : "\ue8f5";
+            PasswordIconCode = EntryAsPassword ? FontHelper.CLOSED_EYE_ICON : FontHelper.OPEN_EYE_ICON;
         }
 
         public ICommand NavigateToSignUpCommand { get; }
