@@ -39,6 +39,18 @@ namespace FitAgent.ViewModels
             }
         }
 
+        private bool _keepMeSignedIn;
+        public bool KeepMeSignedIn
+        {
+            get => _keepMeSignedIn;
+            set
+            {
+                if (_keepMeSignedIn == value) return;
+                _keepMeSignedIn = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string _loginMessage;
         public string LoginMessage
         {
@@ -134,6 +146,7 @@ namespace FitAgent.ViewModels
         {
             UserName = string.Empty;
             UserPassword = string.Empty;
+            KeepMeSignedIn = false;
             EntryAsPassword = true;
             SignInMessageVisible = false;
         }

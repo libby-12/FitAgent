@@ -55,6 +55,16 @@
                                 SemanticProperties.Description="{Binding PasswordToggleDescription}" />
                         </Grid>
                     </Border>
+                    <HorizontalStackLayout Spacing="8">
+                        <CheckBox
+                            Color="{StaticResource BrandLilac}"
+                            IsChecked="{Binding KeepMeSignedIn, Mode=TwoWay}"
+                            SemanticProperties.Description="Keep me signed in" />
+                        <Label
+                            Text="Keep me signed in"
+                            TextColor="{StaticResource BrandText}"
+                            VerticalOptions="Center" />
+                    </HorizontalStackLayout>
                     <Button
                         Text="Sign In"
                         Command="{Binding SignInCommand}"
