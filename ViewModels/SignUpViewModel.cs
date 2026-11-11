@@ -50,7 +50,7 @@ namespace FitAgent.ViewModels
                 _userName = value;
                 SignUpMessageVisible = false;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(IsEmailValid));
+                OnPropertyChanged(nameof(ShowEmailError));
                 ((Command)SignUpCommand).ChangeCanExecute();
             }
         }
@@ -69,7 +69,21 @@ namespace FitAgent.ViewModels
             }
         }
 
-        public bool IsEmailValid => AuthInput.IsEmailValid(UserName);
+        private bool _isEmailValid;
+        public bool IsEmailValid
+        {
+            get => _isEmailValid;
+            set
+            {
+                if (_isEmailValid == value) return;
+                _isEmailValid = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(ShowEmailError));
+                ((Command)SignUpCommand).ChangeCanExecute();
+            }
+        }
+
+        public bool ShowEmailError => !string.IsNullOrWhiteSpace(UserName) && !IsEmailValid;
 
         private string _signUpMessage = string.Empty;
         public string SignUpMessage
@@ -182,9 +196,14 @@ namespace FitAgent.ViewModels
             EntryAsPassword = !EntryAsPassword;
         }
 
-        // Shell can keep pages alive, so clear temporary credentials when leaving.
-        public void ResetSensitiveState()
+        // Shell can reuse the page, so clear the form when leaving.
+        public void ResetForm()
         {
+            FirstName = string.Empty;
+            LastName = string.Empty;
+            UserName = string.Empty;
+            Phone = string.Empty;
+            IsEmailValid = false;
             UserPassword = string.Empty;
             EntryAsPassword = true;
             SignUpMessageVisible = false;

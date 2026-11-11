@@ -1,4 +1,3 @@
-using System.Net.Mail;
 using System.Text.RegularExpressions;
 
 namespace FitAgent.Helper;
@@ -12,14 +11,6 @@ public static class AuthInput
     public static bool EmailsMatch(string? first, string? second) =>
         string.Equals(NormalizeEmail(first), NormalizeEmail(second),
             StringComparison.OrdinalIgnoreCase);
-
-    public static bool IsEmailValid(string? email)
-    {
-        string cleaned = NormalizeEmail(email);
-        return MailAddress.TryCreate(cleaned, out var address)
-            && string.Equals(address.Address, cleaned, StringComparison.OrdinalIgnoreCase)
-            && address.Host.Contains('.');
-    }
 
     public static bool IsPasswordValid(string? password) =>
         !string.IsNullOrWhiteSpace(password) && password.Length >= MinimumPasswordLength;

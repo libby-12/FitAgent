@@ -2,6 +2,7 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:FitAgent.Behaviors"
     xmlns:viewModels="clr-namespace:FitAgent.ViewModels"
     x:DataType="viewModels:SignUpViewModel"
     x:Class="FitAgent.Views.SignUp"
@@ -49,8 +50,20 @@
                             Placeholder="Email"
                             Text="{Binding UserName}"
                             Keyboard="Email"
-                            Style="{StaticResource AuthEntry}" />
+                            Style="{StaticResource AuthEntry}">
+                            <Entry.Behaviors>
+                                <behaviors:TrimmedEmailValidationBehavior
+                                    x:Name="EmailValidator"
+                                    Flags="ValidateOnValueChanged" />
+                            </Entry.Behaviors>
+                        </Entry>
                     </Border>
+                    <Label
+                        Text="{x:Static helper:AppMessages.InvalidEmail}"
+                        IsVisible="{Binding ShowEmailError}"
+                        TextColor="#FFB4AB"
+                        FontSize="12"
+                        Margin="4,-8,0,0" />
                     <Border
                         Style="{StaticResource AuthField}">
                         <Grid
@@ -91,14 +104,6 @@
                         Text="Sign Up"
                         Command="{Binding SignUpCommand}"
                         Style="{StaticResource AuthButton}" />
-                    <Label
-                        Text="{Binding SignUpMessage}"
-                        TextColor="{Binding SignUpMessageColor}"
-                        IsVisible="{Binding SignUpMessageVisible}"
-                        HorizontalOptions="Center"
-                        FontSize="14"
-                        FontAttributes="Bold"
-                        HorizontalTextAlignment="Center" />
                     <FlexLayout
                         HorizontalOptions="Center"
                         Margin="0,12,0,0"
@@ -124,6 +129,14 @@
                             </Label.GestureRecognizers>
                         </Label>
                     </FlexLayout>
+                    <Label
+                        Text="{Binding SignUpMessage}"
+                        TextColor="{Binding SignUpMessageColor}"
+                        IsVisible="{Binding SignUpMessageVisible}"
+                        HorizontalOptions="Center"
+                        FontSize="14"
+                        FontAttributes="Bold"
+                        HorizontalTextAlignment="Center" />
                 </VerticalStackLayout>
             </Border>
         </VerticalStackLayout>

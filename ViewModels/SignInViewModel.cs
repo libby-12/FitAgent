@@ -129,9 +129,10 @@ namespace FitAgent.ViewModels
             EntryAsPassword = !EntryAsPassword;
         }
 
-        // Shell can keep pages alive, so clear temporary credentials when leaving.
-        public void ResetSensitiveState()
+        // Shell can reuse the page, so clear the form when leaving.
+        public void ResetForm()
         {
+            UserName = string.Empty;
             UserPassword = string.Empty;
             EntryAsPassword = true;
             SignInMessageVisible = false;

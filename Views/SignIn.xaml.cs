@@ -16,6 +16,6 @@ public partial class SignIn : ContentPage
 
         // The page forwards its lifecycle event; the view model owns the reset.
         if (BindingContext is SignInViewModel viewModel)
-            viewModel.ResetSensitiveState();
+            viewModel.ResetForm();
     }
 }
